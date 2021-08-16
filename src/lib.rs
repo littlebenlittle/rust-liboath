@@ -34,10 +34,32 @@ mod tests {
 
     #[test]
     fn it_generates_a_totp() {
-        let secret = "\x31\x32\x33\x34\x35\x36\x37\x38\x39";
-        let now = 54321 as u32;
-        let output_otp = totp_generate(secret, now);
-        assert_eq!(output_otp, 49 as i8);
+        struct Unit {
+            secret: &'static str,
+            now: u32,
+            expects: i8,
+        }
+        let tests = vec!(
+            Unit {
+                secret: "\x31\x32\x33\x34\x35\x36\x37\x38\x39",
+                now: 54321 as u32,
+                expects: 49,
+            },
+            Unit {
+                secret: "\x41\x33\x43\x34\x42\x36\x37\x38\x39",
+                now: 1000005 as u32,
+                expects: 51,
+            },
+            Unit {
+                secret: "\x47\x79\x42\x34\x40\x48\x37\x38\x39",
+                now: 20005040 as u32,
+                expects: 57,
+            },
+        );
+        for t in tests {
+            let output_otp = totp_generate(t.secret, t.now);
+            assert_eq!(output_otp, t.expects);
+        }
     }
 
 }
