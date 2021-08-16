@@ -42,17 +42,17 @@ mod tests {
         let tests = vec!(
             Unit {
                 secret: "\x31\x32\x33\x34\x35\x36\x37\x38\x39",
-                now: 54321 as u32,
+                now: 54321,
                 expects: 49,
             },
             Unit {
                 secret: "\x41\x33\x43\x34\x42\x36\x37\x38\x39",
-                now: 1000005 as u32,
+                now: 1000005,
                 expects: 51,
             },
             Unit {
                 secret: "\x47\x79\x42\x34\x40\x48\x37\x38\x39",
-                now: 20005040 as u32,
+                now: 20005040,
                 expects: 57,
             },
         );
