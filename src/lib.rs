@@ -2,11 +2,12 @@ use libc::time_t;
 use liboath_sys;
 use std::ffi::CString;
 
-pub fn totp_generate(secret: String) -> i8 {
+pub fn totp_generate(secret: &str, now: u32) -> i8 {
+    let secret = secret.to_string();
     let secret_length = secret.len() as u64;
     let secret = CString::new(secret).expect("key could not be converted to CString");
     let secret_ptr = secret.as_ptr();
-    let now = 54321 as time_t;
+    let now = now as time_t;
     let time_step_size = 30 as u32;
     let start_offset = 0 as i64;
     let digits = 6 as u32;
@@ -33,8 +34,9 @@ mod tests {
 
     #[test]
     fn it_generates_a_totp() {
-        let secret = "\x31\x32\x33\x34\x35\x36\x37\x38\x39".to_string();
-        let output_otp = totp_generate(secret);
+        let secret = "\x31\x32\x33\x34\x35\x36\x37\x38\x39";
+        let now = 54321 as u32;
+        let output_otp = totp_generate(secret, now);
         assert_eq!(output_otp, 49 as i8);
     }
 
