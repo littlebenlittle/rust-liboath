@@ -2,9 +2,6 @@ use liboath_sys;
 use libc::{c_char, c_uint, time_t};
 use std::ffi::{CStr, CString};
 
-pub type OathError = String;
-pub type Result<T> = std::result::Result<T, OathError>;
-
 pub enum Digits {
     Six,
     Seven,
