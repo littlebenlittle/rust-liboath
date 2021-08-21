@@ -29,7 +29,7 @@ impl From<String> for TotpSecret {
 }
 
 pub fn totp_generate(
-    totp_secret: TotpSecret,
+    totp_secret: &TotpSecret,
     now: liboath_sys::time_t,
     time_step_size: c_uint,
     start_offset: liboath_sys::time_t,
@@ -94,7 +94,7 @@ mod tests {
             let now = 20005041;
             let time_step_size = 30;
             let start_offset = 0;
-            let output_otp = totp_generate(secret, now, time_step_size, start_offset, t.digits);
+            let output_otp = totp_generate(&secret, now, time_step_size, start_offset, t.digits);
             assert_eq!(output_otp, t.expects);
         }
     }
