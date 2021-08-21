@@ -10,6 +10,7 @@ pub enum Digits {
     Eight,
 }
 
+#[derive(Clone, PartialEq)]
 pub struct TotpSecret {
     inner: SecretVec<u8>,
 }
