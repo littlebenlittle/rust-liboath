@@ -28,6 +28,13 @@ impl From<String> for TotpSecret {
     }
 }
 
+impl Into<String> for TotpSecret {
+    fn into(self) -> String {
+        let secret = self.inner.borrow().to_vec();
+        std::str::from_utf8(&secret[..]).unwrap().to_owned()
+    }
+}
+
 pub fn totp_generate(
     totp_secret: &TotpSecret,
     now: liboath_sys::time_t,
@@ -98,4 +105,13 @@ mod tests {
             assert_eq!(output_otp, t.expects);
         }
     }
+
+    #[test]
+    fn it_converts_between_totpsecret_and_string() {
+        let i: String = "somevalue".to_owned();
+        let secret: TotpSecret = i.clone().into();
+        let o: String = secret.into();
+        assert_eq!(i, o);
+    }
+
 }
