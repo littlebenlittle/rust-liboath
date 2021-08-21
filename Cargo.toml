@@ -8,3 +8,4 @@ edition = "2018"
 [dependencies]
 liboath-sys = { git = "https://github.com/littlebenlittle/rust-liboath-sys" }
 libc = "0.2"
+secrets = "1.1.0"
